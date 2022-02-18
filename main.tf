@@ -1,0 +1,23 @@
+module "rates_infra" {
+  source                = "./resources/rates_infra"
+  region                = var.region
+  rds_instance_class    = var.rds_instance_class
+  instance_type         = var.instance_type
+  rds_username          = var.rds_username
+  availability_zones    = var.availability_zones
+  health_check_path     = var.health_check_path
+  autoscale_desired     = var.autoscale_desired
+  allowed_hosts         = var.allowed_hosts
+  rds_db_name           = var.rds_db_name
+  rds_password          = var.rds_password
+  public_subnet_1_cidr  = var.public_subnet_1_cidr
+  public_subnet_2_cidr  = var.public_subnet_2_cidr
+  ecs_cluster_name      = var.ecs_cluster_name
+  docker_image_rates    = var.docker_image_rates
+  ssh_pubkey_file       = var.ssh_pubkey_file
+  autoscale_min         = var.autoscale_min
+  autoscale_max         = var.autoscale_max
+  amis                  = var.amis
+  app_count             = var.app_count
+  log_retention_in_days = var.log_retention_in_days
+}
