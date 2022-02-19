@@ -6,6 +6,7 @@
       "Action": [
         "ecs:*",
         "ec2:*",
+        "elasticloadbalancing:*",
         "ecr:*",
         "cloudwatch:*",
         "s3:*",

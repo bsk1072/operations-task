@@ -1,0 +1,17 @@
+---
+- name: Execute playbook for rates database
+  hosts: localhost
+  tasks:
+    - name: this will execute psql script
+      command: psql -f ./db/rates.sql
+      environment:
+          PGUSER: "{{ pguser }}"
+          PGHOST: "{{ pghost }}"
+          PGPASSWORD: "{{ pgpassword }}"
+
+    - name: This will check if the execution is done and db is fed
+      command: psql -c "SELECT 'alive'"
+      environment:
+          PGUSER: "{{ pguser }}"
+          PGHOST: "{{ pghost }}"
+          PGPASSWORD: "{{ pgpassword }}"

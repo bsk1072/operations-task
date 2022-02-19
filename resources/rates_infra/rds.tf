@@ -22,3 +22,10 @@ resource "aws_db_instance" "development" {
   backup_retention_period = 7
   skip_final_snapshot     = true
 }
+
+resource "null_resource" "execute_playbook" {
+provisioner "local-exec" {
+    command = "ansible-playbook ${path.module}/../../playbook.yml -e 'pguser=${var.rds_username} pghost=${aws_db_instance.development.address} pgpassword=${var.rds_password}' -vv"
+  }
+  depends_on = [aws_db_instance.development]
+}

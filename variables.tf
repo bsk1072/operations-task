@@ -41,13 +41,13 @@ variable "ecs_cluster_name" {
 
 variable "amis" {
   description = "AMI used for ecs backend ec2 instance"
-   default = {
-    eu-west-1 = "ami-0bf84c42e04519c85"
+  default = {
+    eu-west-1 = "ami-0d8d8f76584c4a1ca"
   }
 }
 
 variable "instance_type" {
-	default = "t2.micro"
+  default = "t2.micro"
 }
 
 variable "docker_image_rates" {
@@ -68,7 +68,7 @@ variable "allowed_hosts" {
 # logs
 
 variable "log_retention_in_days" {
-	default = 30
+  default = 30
 }
 
 
