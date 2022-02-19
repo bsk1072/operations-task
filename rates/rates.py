@@ -12,10 +12,10 @@ def get_db_conn(db_config):
     """ Create a database connection. """
     return psycopg2.connect(
         "dbname='{}' user='{}' password='{}' host='{}'".format(
-            os.environ.get('DBNAME'),
-            os.environ.get('DBUSER'),
-            os.environ.get('DBPASS'),
-            os.environ.get('DBHOST')
+            os.environ.get('RDS_DB_NAME'),
+            os.environ.get('RDS_USERNAME'),
+            os.environ.get('RDS_PASSWORD'),
+            os.environ.get('RDS_HOSTNAME')
         )
     )
 
