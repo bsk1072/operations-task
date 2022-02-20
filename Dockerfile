@@ -19,4 +19,4 @@ RUN pip install -r requirements.txt
 # copy project
 COPY rates .
 
-ENTRYPOINT ["gunicorn", "-b", ":3000", "wsgi"]
+CMD ["gunicorn", "-b", ":3000", "wsgi"]
