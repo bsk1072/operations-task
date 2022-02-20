@@ -30,7 +30,7 @@ The project is developed in a very generic model where we have to pass variables
 <a name="Requirements"></a>
 ## 3. Requirements
 
-1. You must have Terraform => 1.1.6 installed on your Linux Box.
+1. You must have **terraform** => 1.1.6 installed on your Linux Box.
    - Please install terraform client if not already installed by using below commands,
      - curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
      - sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
@@ -39,12 +39,12 @@ The project is developed in a very generic model where we have to pass variables
    - Please follow the instructions to [Create AWS account](https://portal.aws.amazon.com/billing/signup?nc2=h_ct&src=header_signup&redirect_url=https%3A%2F%2Faws.amazon.com%2Fregistration-confirmation#/start).
    - Generally, AWS provides a free tier acccess with 1 year validity for first time. To Sign up users refer to [AWS free tier](https://aws.amazon.com/free/).
 <a name="step-3.3"></a>
-3. You must have a credentials file from your AWS account using [security credentials in the AWS Console](https://console.aws.amazon.com/iam/home?region=eu-west-1#/security_credentials).<span style="color:red">  You must sign in to access this page </span>
+3. You must have a credentials file from your AWS account using [security credentials in the AWS Console](https://console.aws.amazon.com/iam/home?region=eu-west-1#/security_credentials). **⚠ REQUIRED:**  <span style="color:red">  You must sign in to access this page </span>
    - This Above link provides you options to download the credentials excell Format.
    - Please note the credentials that need to be set in the credentials file inside the home location.
    - Now, Copy the content from inside the aws credentials file and paste it inside credentials.json file you will find in the root location of this project.
    - This will set your credentials ready to authenticate to the GCP account via API calls.
-4. Additionally, we need latest ansible server to run a small playbook which will automate the sql script executions into the psql server once environment is set.
+4. Additionally, we need latest **ansible** server to run a small playbook which will automate the sql script executions into the psql server once environment is set.
 5. This code is written in Terraform 1.1.6 environment.
 
 <a name="Codestructure"></a>
@@ -99,23 +99,49 @@ Steps to build the latest app for execution,
 
 - #### We must login to the AWS account before any actions using the below command,
     - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin [AWS Account ID].dkr.ecr.eu-west-1.amazonaws.com
-    - <span style="color:red"> This command will ask the credentials for the first time login to authenticate the aws account.</span>
+    - **⚠ WARNING:** <span style="color:red"> This command will ask the credentials for the first time login to authenticate the aws account.</span>
 - #### Build a Docker image using Dockerfile in the root directory. Use below commands to build it,
     - docker build -t [AWS Account ID].dkr.ecr.eu-west-1.amazonaws.com/rates-ecr:latest .
 - #### Now the image should be deployed to the Amazon Container Register using the below command,
     - docker push [AWS Account ID].dkr.ecr.eu-west-1.amazonaws.com/rates-ecr:latest
 - #### Once the docker image is pushed into the ecr, its time to trigger the terraform code to provision the environment for along with code deployment and database execution.
     - terraform apply --var-file=development.tfvars
-    - <span style="color:red"> Please do update the development.tfvars file before execution.</span>
+    - **⚠ WARNING:** <span style="color:red"> Please do update the development.tfvars file before execution.</span>
 - #### To destroy the environment, please run the below command,
     - terraform destroy --var-file=development.tfvars
-    - <span style="color:red"> Please do update the development.tfvars file before execution.</span>
+    - **⚠ WARNING:** <span style="color:red"> Please do update the development.tfvars file before execution.</span>
 
 
 <a name="AutoExecution"></a>
 ## 6. Automatic Execution
 
-This is a complete CICD job which need to explicit inputs. Once the developer is done with the script changes, he can commit the code to the repository, the pipeline will be executed with all configurations. Everything is configured inside Jenkinsfile.
+This is a complete CICD job which need to explicit inputs. Once the developer is done with the script changes, he can commit the code to the repository. The pipeline will be executed with all configurations. Everything is configured inside Jenkinsfile.
 
 Below figure shows the complete execution flow,
 ![Demo CICD for IaC- rates app](./images/CICD_IaC.JPG?raw=true)
+
+Once the developer commits code to the repository, the pipeline in Jenkins gets triggered and executed the terraform execution. This pipeline is parameterized in a way, we can run categorically
+- Apply- This will run the terraform execution and provision the infra
+- Destroy - This parameter will destroy the infra provisioned earlier
+- Image - This is will be used to create an image and push the image to ECR.
+
+
+### Terraform Apply (default) - This will apply the infra on AWS, a full provision,
+![Demo CICD for IaC- rates app](./images/PipelineExecution.JPG?raw=true)
+
+### Executions logs can be seen like below,
+![Demo CICD for IaC- rates app](./images/ApplyExecutionLogs.JPG?raw=true)
+
+### Once execution is complete, pipeline will respond with the elb dns for access to the app,
+![Demo CICD for IaC- rates app](./images/BrowserOutput.JPG?raw=true)
+
+### Terraform Destroy - This Options will destroy the infra built on AWS using the previous state file,
+![Demo CICD for IaC- rates app](./images/DestroyEnvPipeline.JPG?raw=true)
+
+### Below Executions logs give your the number of resources terraform is destroyed,
+![Demo CICD for IaC- rates app](./images/DestroyExecutionLogs.JPG?raw=true)
+
+### Once execution is complete, the complete app will be destroyed,
+![Demo CICD for IaC- rates app](./images/EnvironmentDestroy.JPG?raw=true)
+
+**⚠ NOTE:** The Details are highlighted with yellow. 
