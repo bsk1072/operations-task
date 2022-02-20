@@ -130,18 +130,18 @@ Once the developer commits code to the repository, the pipeline in Jenkins gets 
 ![Demo CICD for IaC- rates app](./images/PipelineExecution.JPG?raw=true)
 
 ### Executions logs can be seen like below,
-![Demo CICD for IaC- rates app](./images/ApplyExecutionLogs.JPG?raw=true)
+![Demo CICD for IaC- rates app](./images/ApplyLogs.JPG?raw=true)
 
 ### Once execution is complete, pipeline will respond with the elb dns for access to the app,
-![Demo CICD for IaC- rates app](./images/BrowserOutput.JPG?raw=true)
+![Demo CICD for IaC- rates app](./images/App_Output.JPG?raw=true)
 
 ### Terraform Destroy - This Options will destroy the infra built on AWS using the previous state file,
 ![Demo CICD for IaC- rates app](./images/DestroyEnvPipeline.JPG?raw=true)
 
 ### Below Executions logs give your the number of resources terraform is destroyed,
-![Demo CICD for IaC- rates app](./images/DestroyExecutionLogs.JPG?raw=true)
+![Demo CICD for IaC- rates app](./images/DestroyLogs.JPG?raw=true)
 
 ### Once execution is complete, the complete app will be destroyed,
-![Demo CICD for IaC- rates app](./images/EnvironmentDestroy.JPG?raw=true)
+![Demo CICD for IaC- rates app](./images/App_Destroy.JPG?raw=true)
 
 **⚠ NOTE:** The Details are highlighted with yellow. 
