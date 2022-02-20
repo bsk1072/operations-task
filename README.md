@@ -99,7 +99,7 @@ The output should be something like this:
 }
 ```
 
-## Case: Data ingestion pipeline  The Data Case ingestion Documentation can be found [here](dataIngestionPipeline-README.md)
+## Case: Data ingestion pipeline - The Data Case ingestion Documentation can be found [here](dataIngestionPipeline-README.md)
 
 In this section we are seeking high-level answers, use a maximum of couple of paragraphs to answer the questions.
 
