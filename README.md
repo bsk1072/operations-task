@@ -20,7 +20,7 @@ Some general points:
 
 * If you have any questions, please don't hesitate to contact us.
 
-## Practical case: Deployable development environment
+## Practical case: Deployable development environment - The technical Documentation can be found [here](terraform-README.md)
 
 ### Premise
 
