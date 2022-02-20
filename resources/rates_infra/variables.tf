@@ -4,6 +4,10 @@ variable "region" {
   description = "The AWS region to create resources"
 }
 
+variable "account" {
+  description = "The AWS account to create resources"
+}
+
 
 # networking
 

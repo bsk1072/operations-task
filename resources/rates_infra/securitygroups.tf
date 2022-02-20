@@ -11,7 +11,6 @@ resource "aws_security_group" "load-balancer" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -23,15 +22,8 @@ resource "aws_security_group" "load-balancer" {
 # ECS Security group (traffic ALB -> ECS, ssh -> ECS)
 resource "aws_security_group" "ecs" {
   name        = "ecs_security_group"
-  description = "Allows inbound access from the ALB only and 3000"
+  description = "Allows inbound access from the ALB only"
   vpc_id      = aws_vpc.development-vpc.id
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
   ingress {
     from_port   = 3000
@@ -39,7 +31,6 @@ resource "aws_security_group" "ecs" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
 
   ingress {
     from_port       = 0

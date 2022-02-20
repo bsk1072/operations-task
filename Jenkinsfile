@@ -1,0 +1,72 @@
+def elb_dns
+pipeline {
+    agent any
+    parameters {
+        choice(
+            name: 'Action',
+            choices: ['Apply', 'Destroy'],
+            description: 'Terraform action'
+        )
+    }
+    stages {
+        stage('Checkout code from repository') {
+            steps {
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'gitCredbsk1072', url: 'https://github.com/bsk1072/operations-task.git']]])
+		echo "checkout code from repository"
+            }
+        }
+        
+        stage('push docker image to ECR') {
+            steps {
+                script {
+                   withDockerRegistry(credentialsId: 'ecr:eu-west-1:awsCredAWS', url: 'http://182313166565.dkr.ecr.eu-west-1.amazonaws.com') {
+                def ratesImage = docker.build('182313166565.dkr.ecr.eu-west-1.amazonaws.com/rates-ecr')
+                ratesImage.push() 
+		echo "Build and push image to ecr"
+                    }
+                }
+            }
+		
+        stage('Provision Infra and Deploy Services - Terraform init') {
+            steps {
+                script {
+                   sh "terraform plan --var-file=development.tfvars -out terraform.plan"
+		   echo "plan the terraform modules"
+                }
+            }
+        }
+
+        stage('Provision Infra and Deploy Services - Terraform apply') {
+		     when {
+         expression { params.Action != 'Destroy' }
+     }
+            steps {
+                script {
+                    elb_dns = terraApply()
+		  echo "apply terraform plan file for provisioning"
+                }
+            }
+        }
+
+        stage('Provision Infra and Deploy Services - Terraform Destroy') {
+		     when {
+         expression { params.Action == 'Destroy' }
+     }
+            steps {
+                script {
+                   sh "terraform destroy --var-file=development.tfvars"
+		   echo "destroy the infra with earlier changes"
+                }
+            }
+        }			
+    }
+}
+
+def terraApply(){
+    def rates_elb_dns
+    sh "terraform apply terraform.plan"
+    rates_elb_ip = sh "sh(returnStdout: true, script: "terraform output rates_dns_name").trim()"
+    sh 'curl "http://${rates_elb_dns}/rates?date_from=2021-01-01&date_to=2021-01-31&orig_code=CNGGZ&dest_code=EETLL"'
+    return rates_elb_dns
+    
+}

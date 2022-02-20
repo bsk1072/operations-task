@@ -1,5 +1,6 @@
 module "rates_infra" {
   source                = "./resources/rates_infra"
+  account		= var.account
   region                = var.region
   rds_instance_class    = var.rds_instance_class
   instance_type         = var.instance_type

@@ -5,6 +5,11 @@ variable "region" {
   default     = "eu-west-1"
 }
 
+variable "account" {
+  description = "The AWS account to create resources"
+  default     = "<AWS Account ID>"
+}
+
 
 # networking
 

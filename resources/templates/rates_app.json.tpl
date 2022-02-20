@@ -3,13 +3,13 @@
     "name": "rates-app",
     "image": "${docker_image_rates}",
     "essential": true,
-    "cpu": 10,
+    "cpu": 5,
     "memory": 512,
     "links": [],
     "portMappings": [
       {
         "containerPort": 3000,
-        "hostPort": 3000,
+        "hostPort": 0,
         "protocol": "tcp"
       }
     ],

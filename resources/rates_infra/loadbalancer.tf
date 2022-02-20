@@ -27,7 +27,7 @@ resource "aws_alb_target_group" "default-target-group" {
 
 # Listener (redirects traffic from the load balancer to the target group)
 resource "aws_alb_listener" "ecs-alb-http-listener" {
-  load_balancer_arn = aws_lb.development.id
+  load_balancer_arn = aws_lb.development.arn
   port              = "80"
   protocol          = "HTTP"
 #  ssl_policy        = "ELBSecurityPolicy-2016-08"
