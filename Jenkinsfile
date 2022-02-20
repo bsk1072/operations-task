@@ -31,6 +31,15 @@ pipeline {
         stage('Provision Infra and Deploy Services - Terraform init') {
             steps {
                 script {
+                    sh "terraform init"
+                    echo "initialize the terraform backend modules"
+                }
+            }
+        }
+
+        stage('Provision Infra and Deploy Services - Terraform plan') {
+            steps {
+                script {
                     sh "terraform plan --var-file=development.tfvars -out terraform.plan"
                     echo "plan the terraform modules"
                 }
@@ -44,7 +53,7 @@ pipeline {
             steps {
                 script {
                     elb_dns = terraApply()
-                    echo "apply terraform plan file for provisioning"
+                    echo "infra provisioning with loadbalacing dns - ${elb_dns}. Use this url to access to rates application"
                 }
             }
         }
@@ -67,7 +76,6 @@ def terraApply(){
     def rates_elb_dns
     sh "terraform apply terraform.plan"
     rates_elb_ip = sh "sh(returnStdout: true, script: "terraform output rates_dns_name").trim()"
-    sh 'curl "http://${rates_elb_dns}/rates?date_from=2021-01-01&date_to=2021-01-31&orig_code=CNGGZ&dest_code=EETLL"'
     return rates_elb_dns
 
 }
