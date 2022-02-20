@@ -134,7 +134,7 @@ Once the developer commits code to the repository, the pipeline in Jenkins gets 
 ### Executions logs can be seen like below,
 ![Demo CICD for IaC- rates app](./images/ApplyLogs.JPG?raw=true)
 
-### Once execution is complete, pipeline will respond with the elb dns for access to the app,
+### Once execution is complete, pipeline will respond with the elb dns for access to the app(Testing the application),
 ![Demo CICD for IaC- rates app](./images/App_Output.JPG?raw=true)
 
 ### Terraform Destroy - This Options will destroy the infra built on AWS using the previous state file,
@@ -158,6 +158,7 @@ The below factors can be considered for further enhancements,
     2. release branch - deploy to QA region
     3. main branch - deploy to Prod region
 3. Approvals for deployments.
+4. Currently ansible deployment is limited by only one sql script. We can deploy multiple scripts from the folder using updated the playbook.
 
 <a name="Conclusion"></a>
 ## 6. Conclusion
