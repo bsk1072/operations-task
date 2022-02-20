@@ -1,4 +1,6 @@
-# <span style="color:blue"> <em>Table of Contents</em> </span>
+## <div style="color:orange;text-align:center;"> <p>Zero Touch deployment - Rates app</p> </div>
+
+## <span style="color:blue"> <em>Table of Contents</em> </span>
 
 1. [ Rates App environment automation using Terraform. ](#ratesappenvironmentautomationusingTerraform)
 2. [About the Project. ](#abouttheproject)
@@ -6,8 +8,8 @@
 4. [ Code structure. ](#Codestructure)
 5. [ Manual Execution Process](#ManualExecution)
 6. [Automatic Execution Process](#AutoExecution)
-7. [ Execution guide. ](#Executionguide)
-8. [ Test the results. ](#Testtheresults)
+7. [Further Enhancements](#FurtherEnhancements)
+8. [Conclusion](#Conclusion)
 
 
 <a name="ratesappenvironmentautomationusingTerraform"></a>
@@ -16,7 +18,7 @@
 This repository contains the terraform modules for the rates python app environment provisioning on [Amazon Web Services (AWS)](https://aws.amazon.com/console/).
 
 - Architecture model diagram,
-   ![Rates-Architecture](http)
+   ![Rates-Architecture](./images/Iac_CICD_Architecture.JPG?raw=true)
 
 <a name="abouttheproject"></a>
 ## 2. About the project
@@ -145,3 +147,18 @@ Once the developer commits code to the repository, the pipeline in Jenkins gets 
 ![Demo CICD for IaC- rates app](./images/App_Destroy.JPG?raw=true)
 
 **⚠ NOTE:** The Details are highlighted with yellow. 
+
+<a name="FurtherEnhancements"></a>
+## 6. Further Enhancements
+
+The below factors can be considered for further enhancements,
+1. Random Password Generator for rds
+2. Branch wise environment provisioning such as,
+    1. feature branch - deploy to Dev region
+    2. release branch - deploy to QA region
+    3. main branch - deploy to Prod region
+3. Approvals for deployments.
+
+<a name="Conclusion"></a>
+## 6. Conclusion
+For the POC purpose, I have used very least configurations for ecs, ec2 and rds which might act with low performance. We can change the parameters from tfvars file.
