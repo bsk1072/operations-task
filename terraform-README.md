@@ -118,4 +118,4 @@ Steps to build the latest app for execution,
 This is a complete CICD job which need to explicit inputs. Once the developer is done with the script changes, he can commit the code to the repository, the pipeline will be executed with all configurations. Everything is configured inside Jenkinsfile.
 
 Below figure shows the complete execution flow,
-
+![Demo CICD for IaC- rates app](./images/CICD_IaC.JPG?raw=true)
