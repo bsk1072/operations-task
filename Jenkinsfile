@@ -54,7 +54,7 @@ pipeline {
             }
             steps {
                 script {
-                    sh "terraform plan -destroy --var-file=development.tfvars -out terraform.plan"
+                    sh "terraform plan --var-file=development.tfvars -out terraform.plan"
                     echo "plan the terraform modules"
                 }
             }
