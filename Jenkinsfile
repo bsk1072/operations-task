@@ -1,6 +1,8 @@
 def elb_dns
 pipeline {
-    agent any
+    agent {
+        label "ubuntu"
+    }
     parameters {
         choice(
                 name: 'Action',
