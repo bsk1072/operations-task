@@ -44,8 +44,8 @@ The project is developed in a very generic model where we have to pass variables
 3. You must have a credentials file from your AWS account using [security credentials in the AWS Console](https://console.aws.amazon.com/iam/home?region=eu-west-1#/security_credentials). **⚠ REQUIRED:**  <span style="color:red">  You must sign in to access this page </span>
    - This Above link provides you options to download the credentials excell Format.
    - Please note the credentials that need to be set in the credentials file inside the home location.
-   - Now, Copy the content from inside the aws credentials file and paste it inside credentials.json file you will find in the root location of this project.
-   - This will set your credentials ready to authenticate to the GCP account via API calls.
+   - Now, Copy the content from inside the aws credentials file and paste it inside credentials file you will find in the root location of this project.
+   - This will set your credentials ready to authenticate to the AWS account via API calls.
 4. Additionally, we need latest **ansible** server to run a small playbook which will automate the sql script executions into the psql server once environment is set.
 5. This code is written in Terraform 1.1.6 environment.
 
